@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.kuramu.splitbill.Model.Customer
+import com.kuramu.splitbill.Model.User
 import com.kuramu.splitbill.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    var user: Customer? = null
+    var user: User? = null
     var mAuth:FirebaseAuth? = null
     var mUser:FirebaseUser? = null
 
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        //user = Customer(id = 1, clientNumber = "PT445")
+        //user = User(id = 1, clientNumber = "PT445")
 
         btn_login.setOnClickListener {
             mAuth!!.signInWithEmailAndPassword(txt_email.text.toString(), txt_password.text.toString())
