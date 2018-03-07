@@ -1,9 +1,11 @@
 package com.kuramu.splitbill.Activity
 
+import android.nfc.Tag
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -52,16 +54,22 @@ class PinActivity : AppCompatActivity(), TextWatcher {
         }
     }
 
-    private fun pinLogin(inputPin:String): Boolean {
+    private fun pinLogin(inputPin:String) {
         db!!.collection("users")
                 .whereEqualTo("email", email)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
 //                        if (inputPin.equals(task.result.documents.get(0).data.get("email")))
-                        Toast.makeText(applicationContext, task.result.documents[0].get("email").toString(), Toast.LENGTH_LONG).show()
+                        val pin:String = task.result.documents[0].get("pin").toString()
+                        if (inputPin != pin) {
+                            Toast.makeText(applicationContext, "PIN mismatched", Toast.LENGTH_LONG).show()
+                            txt_pin.text.clear()
+                            txt_pin.requestFocus()
+                        }
                     }
+                    else
+                        Log.d("FIREBASE", "failed with", task.exception)
                 }
-        return true
     }
 }
