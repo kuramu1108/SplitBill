@@ -1,6 +1,6 @@
 package com.kuramu.splitbill.Activity
 
-import android.nfc.Tag
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -66,6 +66,10 @@ class PinActivity : AppCompatActivity(), TextWatcher {
                             Toast.makeText(applicationContext, "PIN mismatched", Toast.LENGTH_LONG).show()
                             txt_pin.text.clear()
                             txt_pin.requestFocus()
+                        }
+                        else {
+                            var intent = Intent(applicationContext, LoginActivity::class.java)
+                            startActivity(intent)
                         }
                     }
                     else
