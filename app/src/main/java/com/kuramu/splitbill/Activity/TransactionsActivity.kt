@@ -4,7 +4,10 @@ import com.kuramu.splitbill.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kuramu.splitbill.Adapter.TransactionsAdapter
 import com.kuramu.splitbill.Model.Transaction
@@ -26,23 +29,31 @@ class TransactionsActivity : AppCompatActivity() {
 
         email = mAuth?.currentUser?.email ?: throw Exception("Not Logged in")
 
-//        db!!.collection("users").document("").get().addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
+        var userId: String = intent.getStringExtra("userId")
+        var transactionHistory = TransactionHistory()
 //
-//            }
-//
-//        }
-        var transactionHistory:TransactionHistory = TransactionHistory()
-        var transaction1: Transaction = Transaction("111", "03.07.2018", "55.6", "nothing")
-        var transaction2: Transaction = Transaction("222", "03.05.2018", "155.6", "asdf")
-        var transaction3: Transaction = Transaction("333", "03.06.2018", "5.6", "dda")
+        db!!.collection("users").document(userId).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val account = task.result.data["account"] as DocumentReference
+                account.collection("transactions").get().addOnCompleteListener { task2 ->
+                    for (doc in task2.result.documents) {
+                        transactionHistory.addTransaction(doc.toObject(Transaction::class.java))
+                    }
+                    linearLayoutManager = LinearLayoutManager(this)
+                    recyclerView_transactions.layoutManager = linearLayoutManager
+                    recyclerView_transactions.adapter = TransactionsAdapter(transactionHistory)
+                }
+            }
+        }
 
-        transactionHistory.addTransaction(transaction1)
-        transactionHistory.addTransaction(transaction2)
-        transactionHistory.addTransaction(transaction3)
+//        var transaction1: Transaction = Transaction("111", "03.07.2018", "55.6", "nothing")
+//        var transaction2: Transaction = Transaction("222", "03.05.2018", "155.6", "asdf")
+//        var transaction3: Transaction = Transaction("333", "03.06.2018", "5.6", "dda")
+////
+//        transactionHistory.addTransaction(transaction1)
+//        transactionHistory.addTransaction(transaction2)
+//        transactionHistory.addTransaction(transaction3)
 
-        linearLayoutManager = LinearLayoutManager(this)
-        recyclerView_transactions.layoutManager = linearLayoutManager
-        recyclerView_transactions.adapter = TransactionsAdapter(transactionHistory)
+
     }
 }

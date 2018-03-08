@@ -24,8 +24,8 @@ class TransactionsAdapter (private val transactionHistory: TransactionHistory) :
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(transaction: Transaction) {
-            itemView.txt_amount.text = transaction.amount
-            itemView.txt_date.text = transaction.date
+            itemView.txt_amount.text = transaction.amount.toString()
+            itemView.txt_date.text = transaction.date.toString()
             itemView.txt_description.text = transaction.description
         }
     }

@@ -69,6 +69,7 @@ class PinActivity : AppCompatActivity(), TextWatcher {
                         }
                         else {
                             var intent = Intent(applicationContext, TransactionsActivity::class.java)
+                            intent.putExtra("userId", task.result.documents[0].id)
                             startActivity(intent)
                         }
                     }
