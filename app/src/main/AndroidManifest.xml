@@ -16,7 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.PinActivity"></activity>
+        <activity android:name=".Activity.PinActivity" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:label="@string/title_activity_main" />
+        <activity android:name=".Activity.TransactionsActivity"></activity>
     </application>
 
 </manifest>

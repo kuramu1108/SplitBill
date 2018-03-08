@@ -1,10 +1,11 @@
 package com.kuramu.splitbill.Model
 
-class Transaction() {
-    var id:Int? = null
-    var date:String? = null
-    var amount:String? = null
-    var comment:String? = null
+data class Transaction(
+        var id:String,
+        var date:String,
+        var amount:String,
+        var description:String? = null
+) {
 
 
 }

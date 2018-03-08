@@ -68,7 +68,7 @@ class PinActivity : AppCompatActivity(), TextWatcher {
                             txt_pin.requestFocus()
                         }
                         else {
-                            var intent = Intent(applicationContext, LoginActivity::class.java)
+                            var intent = Intent(applicationContext, TransactionsActivity::class.java)
                             startActivity(intent)
                         }
                     }

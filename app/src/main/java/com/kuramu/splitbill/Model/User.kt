@@ -1,19 +1,12 @@
 package com.kuramu.splitbill.Model
 
 data class User(
-        val id:Int,
-        val clientNumber:String,
-        var firstName:String? = null,
-        var lastName:String? = null,
+        val id:String,
+        var firstName:String,
+        var lastName:String,
         var contactNumber:String? = null,
-        var pin:String? = null,
-        var email:String? = null,
+        var email:String,
         var account: Account? = null
 ) {
-
-    fun pinLogin(pin:String):Boolean {
-        return pin == this.pin
-    }
-
 
 }
